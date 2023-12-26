@@ -5,8 +5,9 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'react-native-gesture-handler';
+import SplashScreen from 'react-native-splash-screen'
 import type {PropsWithChildren} from 'react';
 import {
   useColorScheme,
@@ -18,6 +19,12 @@ import {
 import RootNavigation from './navigations';
 
 function App(): React.JSX.Element {
+
+  useEffect(() => {
+    setTimeout(() => {
+        SplashScreen.hide();
+    }, 500)
+  })
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {

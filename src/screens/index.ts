@@ -8,6 +8,7 @@ import Welcome from "./welcome";
 import Login from "./login";
 import Register from "./register";
 import VerifyOtp from "./VerifyOtp";
+import Bookmarks from "./bookmark";
 
 // Shouldn't be shown in production
 import Users from "./users";
@@ -24,4 +25,5 @@ export {
     Login, 
     Register, 
     VerifyOtp,
+    Bookmarks,
 }
