@@ -8,7 +8,7 @@ import AuthStack from './AuthStack';
 const Stack = createStackNavigator();
 
 const AppStack = () => {
-  const isLoggedIn = true; 
+  const isLoggedIn = false; 
   return (
     <Stack.Navigator screenOptions={{headerShown : false}}>
         {

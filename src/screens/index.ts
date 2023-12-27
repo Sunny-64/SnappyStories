@@ -9,11 +9,19 @@ import Login from "./login";
 import Register from "./register";
 import VerifyOtp from "./VerifyOtp";
 import Bookmarks from "./bookmark";
-
+import ForgotPassword from "./forgotPassword";
+import ResetPassword from "./resetPassword";
 // Shouldn't be shown in production
 import Users from "./users";
 
 export {
+    Welcome, 
+    Register, 
+    Login, 
+    ForgotPassword,
+    VerifyOtp,
+    ResetPassword,
+    
     Home, 
     Chat,
     Profile,
@@ -21,9 +29,5 @@ export {
     Notifications, 
     Stories,
     Users, // needs to be removed after chat app is created
-    Welcome, 
-    Login, 
-    Register, 
-    VerifyOtp,
     Bookmarks,
 }
