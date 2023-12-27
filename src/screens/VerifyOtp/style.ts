@@ -30,13 +30,12 @@ const styles = StyleSheet.create({
         fontSize: 21,
         fontWeight: 'bold',
         marginVertical: 10,
-        // textAlign : 'center',
+        textAlign : 'center',
     },
     description: {
         fontSize: 16,
         marginBottom: 20,
-        textAlign : 'justify',
-        
+        textAlign: 'center',
     },
     inputField: {
         width: '100%',
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginBottom: 20,
         paddingHorizontal: 10,
-        borderRadius : 8,
+        borderRadius: 8,
     },
     button: {
         backgroundColor: PURPLE_ACCENT,
@@ -53,22 +52,47 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         borderRadius: 8,
         alignItems: 'center',
-        marginBottom : height * 0.05
+        marginBottom : 20,
     },
     buttonText: {
         color: 'white',
         fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
-        minWidth : 100,
+        minWidth: 100,
     },
     content: {
-        marginTop : 40, 
+        // borderWidth : 1,
+        // height : height * 0.6,
         flex : 1,
-        justifyContent : 'space-between'
+        marginTop: 40,
+        justifyContent : 'space-between',
     },
-    label : {
-        marginBottom : 2,
+    otpContainer : {
+        flexDirection : 'row',
+        justifyContent : 'space-between',
+        // borderWidth : 1,
+    },
+    box: {
+        borderWidth: 1,
+        borderColor: 'black',
+        width: 40,
+        height: 50,
+        // margin: 10,
+        textAlign: 'center',
+        fontSize: 20,
+    },
+    resendOtpContainer : {
+        flexDirection : 'row',
+        marginTop : 20,
+        justifyContent : 'center',
+    }, 
+    timer : {
+        textAlign : 'center',
+        marginTop : 5
+    },
+    counter : {
+        color : PURPLE_ACCENT
     }
 });
 

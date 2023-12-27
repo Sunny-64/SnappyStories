@@ -7,6 +7,7 @@ import { PURPLE_ACCENT } from '../../constants/colors';
 
 const ForgotPassword = ({ navigation }: { navigation: any }) => {
   const [email, setEmail] = useState('');
+ 
 
   const handleResetPassword = () => {
     // Implement your logic for password reset here
@@ -43,7 +44,9 @@ const ForgotPassword = ({ navigation }: { navigation: any }) => {
         {/* Button */}
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("ResetPassword  ")}
+          onPress={() => navigation.navigate("VerifyOtp", {
+              redirectTo : 'ResetPassword'
+          })}
         >
           <Text style={styles.buttonText}>Confirm</Text>
         </TouchableOpacity>
