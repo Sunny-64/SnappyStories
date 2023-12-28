@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         marginRight : 'auto'
     },
     logoContainer: {
-        marginBottom: 10,
+        marginTop : 10,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
@@ -99,6 +99,13 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 8,
     },
+    errorMsgContainer : {
+        flexDirection : 'row', 
+        justifyContent : 'space-between'
+    }, 
+    errorMsgText : {
+        color : 'red',
+    }
 });
 
 export default styles; 

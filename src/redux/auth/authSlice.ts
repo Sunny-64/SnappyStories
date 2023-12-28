@@ -2,35 +2,34 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 
-export interface IUser {
-    username : string
-    email : string
-    token : string
-    profilePicture ?: null | any
-    password : string
+export interface IAuth {
+  token : string;
+  email ?: string;
+  password ?: string;
 }
 
-const initialState:IUser = {
-    username : '', 
-    email : '', 
-    token : '',
-    password : ''
+const initialState: IAuth = {
+  email: '',
+  token: '',
+  password: ''
 }
 
-export const userSlice = createSlice({
-  name: 'user',
+export const authSlice = createSlice({
+  name: 'auth',
   initialState,
   reducers: {
-    setUser : (state:IUser, action) => {
-        state = {
-            ...state,
-            ...action.payload
-        }
+    setAuth: (state: IAuth, action) => {
+      console.log("auth was set", action.payload); 
+      return {
+        ...state,
+        ...action.payload
+      }
+      // console.log("auth was set>>>>>>>>>>>>....\n\n",state.token);
     },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setUser } = userSlice.actions
+export const { setAuth } = authSlice.actions
 
-export default userSlice.reducer
+export default authSlice.reducer

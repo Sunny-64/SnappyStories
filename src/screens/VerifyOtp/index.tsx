@@ -5,11 +5,14 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { logo } from '../../assets/png'
 import styles from './style'
 import { PURPLE_ACCENT } from '../../constants/colors'
+import api from '../../services/api'
+import { useSelector } from 'react-redux'
 
 const VerifyOtp = ({ navigation, route }: { navigation: any, route : any }) => {
   const [otp, setOtp] = useState(['', '', '', '', '']);
+  const getUserToken = useSelector((state:any) => state.auth.token)
 
-  const redirectTo = route.params?.redirectTo;
+  const {redirectTo, apiToCall} = route.params;
   const inputs: any = [];
   const handleOtpChange = (value: string, index: number) => {
     const newOtp = [...otp];
@@ -20,6 +23,34 @@ const VerifyOtp = ({ navigation, route }: { navigation: any, route : any }) => {
       inputs[index + 1].focus();
     }
   };
+  const handleOtpSubmit = async () => {
+    
+    try{
+      if(!otp || otp.length != 5) throw new Error("Invalid otp"); 
+      const stringOtp = otp.join(""); 
+      console.log("string otp >>>>>>>>>>>>>>> ", stringOtp); 
+
+      if(apiToCall === "verify-email") {
+          const response = await api.verifyEmail(stringOtp); 
+          if(response.status === 500) throw new Error("Internal Server Error"); 
+          if(response.status === 400) {
+            console.log(response);
+            throw new Error(response.data.error)
+          }; 
+          console.log(response.data); 
+        navigation.navigate(redirectTo)
+
+      }
+      else{
+        // navigation.navigate(redirectTo)
+        // do soemthing
+      }
+    }
+    catch(err){
+      console.log(err); 
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
@@ -69,7 +100,7 @@ const VerifyOtp = ({ navigation, route }: { navigation: any, route : any }) => {
         {/* Button */}
         <TouchableOpacity
           style={styles.button}
-        onPress={() => navigation.navigate(redirectTo)}
+        onPress={handleOtpSubmit}
         >
           <Text style={styles.buttonText}>Verify</Text>
         </TouchableOpacity>
