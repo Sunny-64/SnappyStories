@@ -6,12 +6,14 @@ export interface IAuth {
   token : string;
   email ?: string;
   password ?: string;
+  isLoggedIn : boolean;
 }
 
 const initialState: IAuth = {
   email: '',
   token: '',
-  password: ''
+  password: '', 
+  isLoggedIn : false
 }
 
 export const authSlice = createSlice({
@@ -24,12 +26,16 @@ export const authSlice = createSlice({
         ...state,
         ...action.payload
       }
-      // console.log("auth was set>>>>>>>>>>>>....\n\n",state.token);
     },
+    logout : () => {
+        return {
+          ...initialState, 
+        }
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setAuth } = authSlice.actions
+export const { setAuth, logout } = authSlice.actions
 
 export default authSlice.reducer

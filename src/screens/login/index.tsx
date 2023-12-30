@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Login = ({ navigation }: { navigation: any }) => {
   const { width, height } = Dimensions.get('screen');
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
@@ -26,24 +26,28 @@ const Login = ({ navigation }: { navigation: any }) => {
     }
   })
 
-  const handleLogin = async (data:any) => {
-      try{
+  const handleLogin = async (data: any) => {
+    try {
 
-        if(!isValid) throw new Error("Invalid inputs"); 
-        const response = await api.login(data); 
-        if(response.status === 500) Alert.alert("Internal server error"); 
-        if(response.status === 400) Alert.alert("client error"); 
-        dispatch(setAuth({token : response?.data?.token})); 
-        // console.log(response.data); 
-        navigation.navigate("VerifyOtp", {
-            redirectTo : 'AppStack', 
-            apiToCall : 'verify-email'
-        })
+      if (!isValid) throw new Error("Invalid inputs");
+      const response = await api.login(data);
+      if (response.status === 500) Alert.alert("Internal server error");
+      if (response.status === 400) Alert.alert("client error");
+      dispatch(setAuth({ token: response?.data?.token }));
+      // console.log(response.data); 
+      if (response?.data?.otpType === 'verify email') {
+        return navigation.navigate("VerifyOtp", {
+          redirectTo: 'AppStack',
+          apiToCall: 'verify-email'
+        }); 
       }
-      catch(err){
-          console.log(err); 
-          Alert.alert("invlaid inputs");
-      }
+
+      dispatch(setAuth({isLoggedIn : true}));
+    }
+    catch (err) {
+      console.log(err);
+      Alert.alert("invlaid inputs");
+    }
   }
 
   return (

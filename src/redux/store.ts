@@ -27,6 +27,11 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
+// Reset Redux state (remove all persisted data)
+export const resetReduxState = async () => {
+  await persistor.purge();
+};
+
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}

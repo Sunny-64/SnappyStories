@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import {
     useTheme,
     Avatar,
@@ -18,18 +18,23 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'
-
-// import{ AuthContext } from '../components/context';
-
-export const signOut = () => {
-    console.log("Signout clicked"); 
-}
-
+import { resetReduxState } from '../../../redux/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../../redux/auth/authSlice';
+ 
 export function DrawerContent(props:any) {
 
-    const paperTheme = useTheme();
-
     // const { signOut, toggleTheme } = React.useContext(AuthContext);
+    const authInfo = useSelector((state:any) => state.auth);
+    const dispatch = useDispatch(); 
+
+    const signOut = () => {
+        Alert.alert("Signing out..."); 
+        setTimeout(() => {
+            resetReduxState().then(() => console.log("function executed")).catch(err => console.log("error"));
+            dispatch(logout())
+        }, 2000) 
+    }
 
     return(
         <View style={{flex:1}}>
@@ -154,7 +159,7 @@ export function DrawerContent(props:any) {
                         />
                     )}
                     label="Sign Out"
-                    onPress={() => {signOut()}}
+                    onPress={signOut}
                 />
             </Drawer.Section>
         </View>

@@ -47,8 +47,7 @@ class ApiService {
         return axios.post(`${BASE_URL}/v1/auth/login`,{email, password});
     }
     verifyEmail(otp:string){
-        console.log("Auth header......",authHeader)
-
+        console.log("Otp here>>>>>>>>>.....",otp)
         return axios.post(`${BASE_URL}/v1/auth/verify-email`, {otp}, {headers : authHeader}); 
     }
 

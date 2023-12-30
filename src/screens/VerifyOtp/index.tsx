@@ -6,11 +6,14 @@ import { logo } from '../../assets/png'
 import styles from './style'
 import { PURPLE_ACCENT } from '../../constants/colors'
 import api from '../../services/api'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setAuth } from '../../redux/auth/authSlice'
+
 
 const VerifyOtp = ({ navigation, route }: { navigation: any, route : any }) => {
   const [otp, setOtp] = useState(['', '', '', '', '']);
   const getUserToken = useSelector((state:any) => state.auth.token)
+  const dispatch = useDispatch();
 
   const {redirectTo, apiToCall} = route.params;
   const inputs: any = [];
@@ -37,13 +40,13 @@ const VerifyOtp = ({ navigation, route }: { navigation: any, route : any }) => {
             console.log(response);
             throw new Error(response.data.error)
           }; 
-          console.log(response.data); 
-        navigation.navigate(redirectTo)
-
-      }
-      else{
+        // console.log(response.data); 
+          const payload = {
+            isLoggedIn : true,
+          }
+        dispatch(setAuth(payload)); 
         // navigation.navigate(redirectTo)
-        // do soemthing
+
       }
     }
     catch(err){
