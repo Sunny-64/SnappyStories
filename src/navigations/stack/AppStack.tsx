@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
-import { View, Text } from 'react-native'
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
-import DrawerNavigation from '../drawer';
-import AuthStack from './AuthStack';
 import { useSelector } from 'react-redux';
 
+// Custom imports 
+import DrawerNavigation from '../drawer';
+import AuthStack from './AuthStack';
 const Stack = createStackNavigator();
 
 const AppStack = () => {

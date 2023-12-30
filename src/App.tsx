@@ -8,11 +8,11 @@ import {
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
+import { Provider } from 'react-redux'
+
 import RootNavigation from './navigations';
 import { store, persistor } from './redux/store';
-import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react';
-import { useSelector } from 'react-redux';
 
 function App(): React.JSX.Element {
 

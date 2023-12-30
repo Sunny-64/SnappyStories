@@ -1,7 +1,9 @@
 import { View, Text, TouchableOpacity, Image, TextInput } from 'react-native';
 import React, { useState } from 'react';
-import styles from './style';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
+// Custom imports 
+import styles from './style';
 import { logo } from '../../assets/png';
 import { PURPLE_ACCENT } from '../../constants/colors';
 

@@ -1,8 +1,9 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
-import styles from './style'
-import { PersonHoldingABook } from '../../assets/svgs'
 import { Dimensions } from 'react-native'
+
+// Custom imports..
+import styles from './style'
 import { logo } from '../../assets/png'
 
 const Welcome = ({ navigation }: { navigation: any }) => {

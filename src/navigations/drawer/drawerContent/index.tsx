@@ -15,11 +15,11 @@ import {
     DrawerContentScrollView,
     DrawerItem
 } from '@react-navigation/drawer';
-
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'
-import { resetReduxState } from '../../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
+
+// Custom imports 
+import { resetReduxState } from '../../../redux/store';
 import { logout } from '../../../redux/auth/authSlice';
  
 export function DrawerContent(props:any) {

@@ -1,19 +1,21 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, Dimensions, KeyboardAvoidingView, Platform, Image, Alert } from 'react-native';
-import { PersonHoldingABook } from '../../assets/svgs';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import styles from './style';
-import { logo } from '../../assets/png';
-import { loginSchema } from '../../validations';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import api from '../../services/api';
-import { IAuth, setAuth } from '../../redux/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
+// Custom imports 
+import { logo } from '../../assets/png';
+import styles from './style';
+import { loginSchema } from '../../validations';
+import api from '../../services/api';
+import { setAuth } from '../../redux/auth/authSlice';
+
 const Login = ({ navigation }: { navigation: any }) => {
-  const { width, height } = Dimensions.get('screen');
+
   const dispatch = useDispatch();
+
   const {
     control,
     handleSubmit,
@@ -28,20 +30,17 @@ const Login = ({ navigation }: { navigation: any }) => {
 
   const handleLogin = async (data: any) => {
     try {
-
       if (!isValid) throw new Error("Invalid inputs");
       const response = await api.login(data);
       if (response.status === 500) Alert.alert("Internal server error");
       if (response.status === 400) Alert.alert("client error");
       dispatch(setAuth({ token: response?.data?.token }));
-      // console.log(response.data); 
       if (response?.data?.otpType === 'verify email') {
         return navigation.navigate("VerifyOtp", {
           redirectTo: 'AppStack',
           apiToCall: 'verify-email'
         }); 
       }
-
       dispatch(setAuth({isLoggedIn : true}));
     }
     catch (err) {

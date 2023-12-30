@@ -1,6 +1,8 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
+
+// Custom imports 
 import { ForgotPassword, Login, Register, ResetPassword, VerifyOtp, Welcome } from '../../screens';
 import { OFF_WHITE } from '../../constants/colors';
 

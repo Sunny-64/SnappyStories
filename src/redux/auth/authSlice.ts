@@ -1,13 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
 
-
-export interface IAuth {
-  token : string;
-  email ?: string;
-  password ?: string;
-  isLoggedIn : boolean;
-}
+// Custom imports 
+import { IAuth } from '../../types';
 
 const initialState: IAuth = {
   email: '',

@@ -1,16 +1,17 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, Dimensions, Image, ScrollView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { useForm, Controller, Resolver } from 'react-hook-form';
+import { yupResolver } from "@hookform/resolvers/yup"
+import { useDispatch } from 'react-redux';
+
+// Custom Imports
 import { logo } from '../../assets/png';
 import styles from './style';
 import { PURPLE_ACCENT } from '../../constants/colors';
 import { registerSchema } from '../../validations';
-import { useForm, Controller, Resolver } from 'react-hook-form';
-import { yupResolver } from "@hookform/resolvers/yup"
 import api from '../../services/api';
-import { useDispatch } from 'react-redux';
 import { setAuth } from '../../redux/auth/authSlice';
-
 
 const Register = ({ navigation }: { navigation: any }) => {
   const { width, height } = Dimensions.get('screen');

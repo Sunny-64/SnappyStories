@@ -2,6 +2,7 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
+// Custom imports 
 import BottomTabNavigation from '../tab';
 import { Profile, WriteStory, Users, Bookmarks } from '../../screens';
 import { OFF_WHITE } from '../../constants/colors';

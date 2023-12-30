@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, Image, TextInput } from 'react-native'
 import React from 'react'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import { useSelector, useDispatch } from 'react-redux'
+
+// Custom imports 
+import api from '../../services/api'
 import { logo } from '../../assets/png'
 import styles from './style'
 import { PURPLE_ACCENT } from '../../constants/colors'
-import api from '../../services/api'
-import { useSelector, useDispatch } from 'react-redux'
 import { setAuth } from '../../redux/auth/authSlice'
-
 
 const VerifyOtp = ({ navigation, route }: { navigation: any, route : any }) => {
   const [otp, setOtp] = useState(['', '', '', '', '']);

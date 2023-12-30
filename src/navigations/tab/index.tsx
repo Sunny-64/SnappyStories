@@ -1,9 +1,11 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'
+
+// Custom imports 
 import { Home, Chat, Stories, Notifications } from '../../screens';
 import { FadeInView } from '../../utils';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'
 import styles from './style';
 import { OFF_WHITE, PURPLE_ACCENT, WHITE } from '../../constants/colors';
 
