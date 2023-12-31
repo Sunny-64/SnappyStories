@@ -13,7 +13,6 @@ const authHeader = {
 class ApiService {
 
     register(data:IAuth) {
-        console.log(data); 
         return axios.post(`${BASE_URL}/v1/auth/register`,data);
     }
     login({email, password} : {email : string, password : string}) {
@@ -21,6 +20,12 @@ class ApiService {
     }
     verifyEmail(otp:string){
         return axios.post(`${BASE_URL}/v1/auth/verify-email`, {otp}, {headers : authHeader}); 
+    }
+    fetchUserData(){
+        return axios.get(`${BASE_URL}/v1/users/currentUser`, {headers : authHeader}); 
+    }
+    fetchUsers(){
+        return axios.get(`${BASE_URL}/v1/users`, {headers : authHeader}); 
     }
 }
 

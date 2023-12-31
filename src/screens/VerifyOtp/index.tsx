@@ -32,13 +32,11 @@ const VerifyOtp = ({ navigation, route }: { navigation: any, route : any }) => {
     try{
       if(!otp || otp.length != 5) throw new Error("Invalid otp"); 
       const stringOtp = otp.join(""); 
-      console.log("string otp >>>>>>>>>>>>>>> ", stringOtp); 
 
       if(apiToCall === "verify-email") {
           const response = await api.verifyEmail(stringOtp); 
           if(response.status === 500) throw new Error("Internal Server Error"); 
           if(response.status === 400) {
-            console.log(response);
             throw new Error(response.data.error)
           }; 
         // console.log(response.data); 

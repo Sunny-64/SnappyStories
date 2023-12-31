@@ -9,7 +9,6 @@ const Stack = createStackNavigator();
 
 const AppStack = () => {
   const getIsLoggedIn = useSelector((state:any) => state.auth.isLoggedIn); 
-  console.log(getIsLoggedIn)
 
   return (
     <Stack.Navigator screenOptions={{headerShown : false}}>

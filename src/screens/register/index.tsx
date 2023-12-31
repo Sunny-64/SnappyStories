@@ -46,7 +46,6 @@ const Register = ({ navigation }: { navigation: any }) => {
         Alert.alert("Invalid inputs", response?.data?.error); 
         return; 
       }
-      console.log("Register api response>>>>>>.",response?.data); 
       const payload = {
           email : data?.email, 
           password : data?.password, 

@@ -15,7 +15,6 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setAuth: (state: IAuth, action) => {
-      console.log("auth was set", action.payload); 
       return {
         ...state,
         ...action.payload

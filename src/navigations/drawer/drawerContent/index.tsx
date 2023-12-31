@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import {
     useTheme,
@@ -19,19 +19,20 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Custom imports 
-import { resetReduxState } from '../../../redux/store';
 import { logout } from '../../../redux/auth/authSlice';
+import { fetchUserData } from '../../../redux/user/userSlice';
+import { AppDispatch } from '../../../redux/store';
  
 export function DrawerContent(props:any) {
 
-    // const { signOut, toggleTheme } = React.useContext(AuthContext);
-    const authInfo = useSelector((state:any) => state.auth);
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch<AppDispatch>(); 
+    const userData = useSelector((state:any) => state.user.data); 
+    useEffect(() => {
+        dispatch(fetchUserData())
+    }, [dispatch])
 
     const signOut = () => {
-        Alert.alert("Signing out..."); 
         setTimeout(() => {
-            resetReduxState().then(() => console.log("function executed")).catch(err => console.log("error"));
             dispatch(logout())
         }, 2000) 
     }
@@ -49,8 +50,8 @@ export function DrawerContent(props:any) {
                                 size={50}
                             />
                             <View style={{marginLeft:15, flexDirection:'column'}}>
-                                <Title style={styles.title}>John Doe</Title>
-                                <Caption style={styles.caption}>@j_doe</Caption>
+                                <Title style={styles.title}>{userData?.username ?? "..."}</Title>
+                                <Caption style={styles.caption}>{userData?.email ?? "..."}</Caption>
                             </View>
                         </View>
 
