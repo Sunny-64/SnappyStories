@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'
 
 // Custom imports 
-import { Home, Chat, Stories, Notifications } from '../../screens';
+import { Home, Chats, Stories, Notifications } from '../../screens';
 import { FadeInView } from '../../utils';
 import styles from './style';
 import { OFF_WHITE, PURPLE_ACCENT, WHITE } from '../../constants/colors';
@@ -23,7 +23,7 @@ const FadeStoriesScreen = (props: any, { navigation }: { navigation: any }) => (
 );
 const FadeChatScreen = (props: any, { navigation }: { navigation: any }) => (
     <FadeInView>
-        <Chat {...props} />
+        <Chats {...props} />
     </FadeInView>
 );
 const FadeNotificationsScreen = (props: any, { navigation }: { navigation: any }) => (

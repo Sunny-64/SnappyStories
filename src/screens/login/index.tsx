@@ -37,7 +37,7 @@ const Login = ({ navigation }: { navigation: any }) => {
       dispatch(setAuth({ token: response?.data?.token }));
       if (response?.data?.otpType === 'verify email') {
         return navigation.navigate("VerifyOtp", {
-          redirectTo: 'AppStack',
+          redirectTo: 'DrawerNavigation',
           apiToCall: 'verify-email'
         }); 
       }
