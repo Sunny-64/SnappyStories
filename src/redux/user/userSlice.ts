@@ -6,7 +6,6 @@ import {api} from '../../services/'
 export const fetchUserData = createAsyncThunk("user/fetchUserData", async (_, thunkApi) => {
     try{
       const res = await api.fetchUserData(); 
-    // console.log("user api result : ",res.data)
     return res.data.data; 
     }
     catch(err:any){
