@@ -9,7 +9,7 @@ export const fetchUserData = createAsyncThunk("user/fetchUserData", async (_, th
     return res.data.data; 
     }
     catch(err:any){
-      console.log(err.response); 
+      console.log(err.response.data); 
     }
 })
 

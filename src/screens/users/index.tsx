@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { api } from './../../services/index'
 import { Avatar } from 'react-native-paper';
 import styles from './style';
-import { setSelectedConversationDetails } from '../../redux/chat/chatSlice';
+import { fetchConversations, setSelectedConversationDetails } from '../../redux/chat/chatSlice';
 import { useDispatch } from 'react-redux';
 import socket from '../../sockets';
+import { AppDispatch } from '../../redux/store';
 
 const Users = ({ navigation }: { navigation: any }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -27,12 +28,15 @@ const Users = ({ navigation }: { navigation: any }) => {
       const response = await api.fetchOrCreateConversation(userId)
       if (response?.data?.message === "Conversation created") {
         dispatch(setSelectedConversationDetails(response?.data?.data));
+        console.log("check fkjafk........", response?.data?.data?._id)
         socket.emit('join', response?.data?.data?._id)
       }
       if(response?.data?.message === "Conversations fetched") {
         dispatch(setSelectedConversationDetails(response?.data?.data[0]));
+        console.log("check eeeeeeeeeee........", response?.data?.data[0]?._id)
         socket.emit('join', response?.data?.data[0]?._id)
       }
+      dispatch(fetchConversations());
       navigation.navigate('AppStack', {screen : 'Conversation'})
     }
     catch (err: any) {

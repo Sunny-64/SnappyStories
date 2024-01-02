@@ -30,7 +30,7 @@ export function DrawerContent(props:any) {
     const userData = useSelector((state:any) => state.user.data); 
     useEffect(() => {
         dispatch(fetchUserData()); 
-    }, [])
+    }, [dispatch]); 
 
     return(
         <View style={{flex:1}}>
