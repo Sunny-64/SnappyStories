@@ -6,6 +6,7 @@ import { Conversation, Header } from '../../components';
 import { fetchConversations, setConversations } from '../../redux/chat/chatSlice';
 import { AppDispatch } from '../../redux/store';
 import socket from '../../sockets';
+import styles from './style';
 
 const Chats = ({ navigation }: { navigation: any }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -32,6 +33,7 @@ const Chats = ({ navigation }: { navigation: any }) => {
       <FlatList
         data={conversations}
         keyExtractor={(item) => item._id?.toString()}
+        style={styles.chatList}
         renderItem={({ item }) => (
           <Conversation conversation={item} navigation={navigation} />
         )}
