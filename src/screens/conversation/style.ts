@@ -89,6 +89,8 @@ const styles = StyleSheet.create({
     sendButtonText: {
       color: '#fff',
       fontWeight: 'bold',
+      textAlign : 'center',
+      minWidth : 35,
     },
     messages : {
         marginVertical : 10,

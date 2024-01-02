@@ -48,13 +48,7 @@ export const chatSlice = createSlice({
             state.selectedConversation.messages = action.payload;
         },
         appendMessageOnSelectedConversation: (state, action) => {
-            return {
-                ...state,
-                selectedConversation: {
-                    ...state.selectedConversation,
-                    messages: [...state.selectedConversation.messages, action.payload]
-                }
-            }
+            state.selectedConversation.messages.push(action.payload); 
         },
         logout: () => {
             return {

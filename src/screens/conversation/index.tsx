@@ -33,7 +33,6 @@ const Conversation = ({ navigation, route }: { navigation: any, route: any }) =>
   // ]);
 
   const currentUserId = useSelector((state: any) => state?.user?.data?._id)
-  console.log(currentUserId)
   const selectedChat = useSelector((state: any) => state.chat?.selectedConversation?.conversationDetails);
 
   const otherUserDetails = selectedChat?.participants?.filter((item: any) => item?._id !== currentUserId);
@@ -47,6 +46,17 @@ const Conversation = ({ navigation, route }: { navigation: any, route: any }) =>
     }
     fetchAndSetMessages();
   }, [])
+
+  useEffect(() => {
+    socket.on('newMesasge', (data: any) => {
+      console.log("New message in conversation.ts : ", data);
+      dispatch(appendMessageOnSelectedConversation(data));
+    })
+    return () => {
+      socket.off('newMessage')
+    }
+  }, [])
+
   const handleSend = async () => {
     try {
       const response = await api.sendMessage(selectedChat?._id, message);
@@ -87,7 +97,7 @@ const Conversation = ({ navigation, route }: { navigation: any, route: any }) =>
         {/* Body */}
         <ScrollView
           showsVerticalScrollIndicator={false}
-          style = {styles.messages}
+          style={styles.messages}
         >
           <View style={styles.body}>
             {messages && messages?.map((msg: any) => (
