@@ -1,27 +1,53 @@
-import { View, Text, TextInput, TouchableOpacity, Image, KeyboardAvoidingView, Platform } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, TextInput, TouchableOpacity, Image, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 // Custom imports
 import styles from './style';
-import { Avatar } from 'react-native-paper';
+import { Avatar, Divider } from 'react-native-paper';
+import { PURPLE_ACCENT } from '../../constants/colors';
+import { api } from './../../services';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectConversationMessages } from '../../redux/chat/chatSlice';
 
 const Conversation = ({ navigation, route }: { navigation: any, route: any }) => {
-  console.log("route params in conversaton ::: ", route);
+
+  const dispatch = useDispatch();
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([
-    { id: 1, text: 'Hello!', sender: 'other' },
-    { id: 2, text: 'Hi there!', sender: 'self' },
-    // Add more messages as needed
-  ]);
+  //dummy messages
+  // const [msgs, setMsgs] = useState([
+  //   { _id: 1, message: 'Hello!', author: 'other' },
+  //   { _id: 2, message: 'Hi there!', author: 'self' },
+  //   { _id: 11, message: 'Hello!', author: 'other' },
+  //   { _id: 3, message: 'Hi there!', author: 'self' },
+  //   { _id: 4, message: 'Hi there!', author: 'self' },
+  //   { _id: 5, message: 'Hi there!', author: 'self' },
+  //   { _id: 10, message: 'Hello!', author: 'other' },
+  //   { _id: 6, message: 'Hi there!', author: 'self' },
+  //   { _id: 7, message: 'Hi there!', author: 'self' },
+  //   { _id: 8, message: 'Hi there!', author: 'self' },
+  //   { _id: 12, message: 'Hello!', author: 'other' },
+  //   { _id: 9, message: 'Hi there!', author: 'self' },
+  //   // Add more messages as needed
+  // ]);
 
-  const handleSend = () => {
-    if (message.trim() === '') {
-      return; // Don't send empty messages
+  const currentUserId = useSelector((state: any) => state?.user?.data?._id)
+  const selectedChat = useSelector((state: any) => state.chat?.selectedConversation?.conversationDetails);
+
+  const otherUserDetails = selectedChat?.participants?.filter((item: any) => item?._id !== currentUserId);
+  const messages = useSelector((state: any) => state?.chat?.selectedConversation?.messages);
+
+  useEffect(() => {
+    const fetchAndSetMessages = async () => {
+      if (selectedChat) {
+        const response = await api.fetchMessagesOfAConversation(selectedChat?._id);
+        dispatch(setSelectConversationMessages(response?.data?.data));
+      }
     }
-
-    const newMessage = { id: messages.length + 1, text: message, sender: 'self' };
-    setMessages([...messages, newMessage]);
-    setMessage('');
+    fetchAndSetMessages();
+  }, [])
+  const handleSend = async () => {
+    console.log("send")
   };
 
   return (
@@ -31,37 +57,43 @@ const Conversation = ({ navigation, route }: { navigation: any, route: any }) =>
     >
       <View style={styles.container}>
         {/* Header */}
-        <View style={styles.header}>
-          <TouchableOpacity onPress={() => console.log('Back pressed')}>
-            {/* Add back button icon or text as needed */}
-            <Text style={styles.backButton}>Back</Text>
+        <View style={styles.logoContainer}>
+          <TouchableOpacity
+            style={styles.backHandler}
+            onPress={() => navigation.goBack()}
+          >
+            <FontAwesome5 name='arrow-circle-left' size={22} color={PURPLE_ACCENT} />
           </TouchableOpacity>
           <View style={styles.userInfo}>
             <Avatar.Image
               source={{
                 uri: 'https://api.adorable.io/avatars/50/abott@adorable.png'
               }}
-              size={50}
-              style={{ borderWidth: 1, }}
+              size={40}
             />
-            <Text style={styles.username}>Username</Text>
+            <Text style={styles.username}>{otherUserDetails[0]?.username}</Text>
           </View>
         </View>
 
+        <Divider bold />
         {/* Body */}
-        <View style={styles.body}>
-          {messages.map((msg) => (
-            <View
-              key={msg.id}
-              style={[
-                styles.messageContainer,
-                { alignSelf: msg.sender === 'self' ? 'flex-end' : 'flex-start' },
-              ]}
-            >
-              <Text style={styles.messageText}>{msg.text}</Text>
-            </View>
-          ))}
-        </View>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.body}>
+            {messages?.map((msg: any) => (
+              <View
+                key={msg?._id}
+                style={[
+                  styles.messageContainer,
+                  { alignSelf: msg?.author === currentUserId ? 'flex-end' : 'flex-start' },
+                ]}
+              >
+                <Text style={styles.messageText}>{msg?.message}</Text>
+              </View>
+            ))}
+          </View>
+        </ScrollView>
 
         {/* Footer */}
         <View style={styles.footer}>

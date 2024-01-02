@@ -3,8 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { api } from './../../services/index'
 import { Avatar } from 'react-native-paper';
 import styles from './style';
+import { setSelectedConversationDetails } from '../../redux/chat/chatSlice';
+import { useDispatch } from 'react-redux';
 
-const Users = ({navigation} : {navigation:any}) => {
+const Users = ({ navigation }: { navigation: any }) => {
+  const dispatch = useDispatch();
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +22,23 @@ const Users = ({navigation} : {navigation:any}) => {
     fetchData();
   }, [])
 
+  const onMessagePress = async (userId: string) => {
+    console.log("target user id :::: ", userId)
+    try {
+      const response = await api.fetchOrCreateConversation(userId)
+      if (response?.data?.message === "Conversation created") {
+        dispatch(setSelectedConversationDetails(response?.data?.data));
+      }
+      if(response?.data?.message === "Conversations fetched") {
+        dispatch(setSelectedConversationDetails(response?.data?.data[0]));
+      }
+      navigation.navigate('AppStack', {screen : 'Conversation'})
+    }
+    catch (err: any) {
+      console.log(err.response.data);
+    }
+  }
+
   const renderItem = ({ item }: { item: any }) => (
     <View style={styles.cardContainer}>
       <View style={styles.imgAndUsernameContainer}>
@@ -27,22 +47,22 @@ const Users = ({navigation} : {navigation:any}) => {
             uri: 'https://api.adorable.io/avatars/50/abott@adorable.png'
           }}
           size={50}
-          style={{borderWidth : 1,}}
+          style={{ borderWidth: 1, }}
         />
         <TouchableOpacity style={styles.followButton}>
           <Text style={styles.buttonText}>Follow</Text>
         </TouchableOpacity>
       </View>
-  
+
       <View style={styles.buttonContainer}>
         <Text style={styles.username}>{item?.username}</Text>
-      
-        <TouchableOpacity 
-        style={styles.messageButton}
-        // onPress={() => navigation.navigate("AppStack", {screen : 'Conversation'}, {params : {userId : item?._id}})}
-        onPress={() => navigation.navigate("AppStack", { screen: 'Conversation', params: { userId: item?._id } })}
+
+        <TouchableOpacity
+          style={styles.messageButton}
+          // onPress={() => navigation.navigate("AppStack", {screen : 'Conversation'}, {params : {userId : item?._id}})}
+          onPress={() => onMessagePress(item?._id)}
         >
-          <Text style={[styles.buttonText, {minWidth : 60}]}>Message</Text>
+          <Text style={[styles.buttonText, { minWidth: 60 }]}>Message</Text>
         </TouchableOpacity>
       </View>
     </View>

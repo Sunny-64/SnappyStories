@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // Custom imports 
 import authReducer from './auth/authSlice';
 import userReducer from './user/userSlice';
+import chatReducer from './chat/chatSlice'; 
 
 const persistConfig = {
   key: 'root',
@@ -14,6 +15,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
+  chat : chatReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

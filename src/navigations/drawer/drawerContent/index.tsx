@@ -19,23 +19,18 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Custom imports 
-import { logout } from '../../../redux/auth/authSlice';
 import { fetchUserData } from '../../../redux/user/userSlice';
 import { AppDispatch } from '../../../redux/store';
+import { Signout } from '../../../components';
+import styles from './style';
  
 export function DrawerContent(props:any) {
 
     const dispatch = useDispatch<AppDispatch>(); 
     const userData = useSelector((state:any) => state.user.data); 
     useEffect(() => {
-        dispatch(fetchUserData())
-    }, [dispatch])
-
-    const signOut = () => {
-        setTimeout(() => {
-            dispatch(logout())
-        }, 2000) 
-    }
+        dispatch(fetchUserData()); 
+    }, [])
 
     return(
         <View style={{flex:1}}>
@@ -151,65 +146,9 @@ export function DrawerContent(props:any) {
                 </View>
             </DrawerContentScrollView>
             <Drawer.Section style={styles.bottomDrawerSection}>
-                <DrawerItem 
-                    icon={({color, size}) => (
-                        <Icon 
-                        name="exit-to-app" 
-                        color={color}
-                        size={size}
-                        />
-                    )}
-                    label="Sign Out"
-                    onPress={signOut}
-                />
+                <Signout />
             </Drawer.Section>
         </View>
     );
 }
 
-const styles = StyleSheet.create({
-    drawerContent: {
-      flex: 1,
-    },
-    userInfoSection: {
-      paddingLeft: 20,
-    //   borderWidth : 1,
-    },
-    title: {
-      fontSize: 16,
-    //   marginTop: 3,
-      fontWeight: 'bold',
-    },
-    caption: {
-      fontSize: 14,
-      lineHeight: 13,
-    },
-    row: {
-      marginTop: 20,
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    section: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginRight: 15,
-    },
-    paragraph: {
-      fontWeight: 'bold',
-      marginRight: 3,
-    },
-    drawerSection: {
-      marginTop: 15,
-    },
-    bottomDrawerSection: {
-        marginBottom: 15,
-        borderTopColor: '#f4f4f4',
-        borderTopWidth: 1
-    },
-    preference: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      paddingVertical: 12,
-      paddingHorizontal: 16,
-    },
-  });

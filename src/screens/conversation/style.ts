@@ -1,10 +1,32 @@
 import { StyleSheet } from "react-native";
+import { Dimensions } from "react-native";
+import { PURPLE_ACCENT } from "../../constants/colors";
+
+const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      padding: 10,
+      paddingHorizontal: 10,
+      paddingVertical : 5
     },
+
+    backHandler: {
+      flexDirection: 'row',
+      marginRight: 'auto'
+  },
+  logoContainer: {
+      marginBottom: 10,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center'
+  },
+  logo: {
+      width: width * 0.4,
+      height: height * 0.1,
+      marginRight: 'auto'
+  },
     header: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -17,7 +39,10 @@ const styles = StyleSheet.create({
     },
     userInfo: {
       flexDirection: 'row',
-      alignItems: 'center',
+      marginRight : 'auto',
+      alignItems : 'center',
+      justifyContent : 'space-around',
+      width : '40%'
     },
     userImage: {
       width: 40,
@@ -28,6 +53,8 @@ const styles = StyleSheet.create({
     username: {
       fontSize: 16,
       fontWeight: 'bold',
+      minWidth : 80,
+      textAlign : 'left'
     },
     body: {
       flex: 1,

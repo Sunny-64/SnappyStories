@@ -60,7 +60,7 @@ const VerifyOtp = ({ navigation, route }: { navigation: any, route : any }) => {
           style={styles.backHandler}
           onPress={() => navigation.goBack()}
         >
-          <FontAwesome5 name='arrow-circle-left' size={22} color={PURPLE_ACCENT} />
+          {/* <FontAwesome5 name='arrow-circle-left' size={22} color={PURPLE_ACCENT} /> */}
         </TouchableOpacity>
         <Image
           source={logo}

@@ -27,6 +27,18 @@ class ApiService {
     fetchUsers(){
         return axios.get(`${BASE_URL}/v1/users`, {headers : authHeader}); 
     }
+    fetchAllConversationsOfUser() {
+        return axios.get(`${BASE_URL}/v1/conversations`, {headers : authHeader}); 
+    }
+    fetchOrCreateConversation(userId : string){
+        return axios.post(`${BASE_URL}/v1/conversations/${userId}`, {}, {headers : authHeader});
+    }
+    fetchMessagesOfAConversation(conversationId : string){
+        return axios.get(`${BASE_URL}/v1/messages/${conversationId}`, {headers : authHeader})
+    }
+    sendMessage(conversationId:string, message:string){
+        return axios.post(`${BASE_URL}/v1/messages/${conversationId}`, {message} ,{headers : authHeader})
+    }
 }
 
 export default new ApiService; 
