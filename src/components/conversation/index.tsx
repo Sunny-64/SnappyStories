@@ -9,7 +9,6 @@ import { api } from '../../services';
 
 const Conversation = ({ conversation, navigation }: { conversation: any, navigation:any }) => {
     const currentUserId = useSelector((state:any) => state?.user?.data?._id)
-    console.log("Conversation...........",conversation)
     const otherUserDetails = conversation?.participants?.filter((item:any) => item?._id !== currentUserId); 
     const dispatch = useDispatch(); 
     const onChatPress = async () => {

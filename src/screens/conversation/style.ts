@@ -90,6 +90,9 @@ const styles = StyleSheet.create({
       color: '#fff',
       fontWeight: 'bold',
     },
+    messages : {
+        marginVertical : 10,
+    }
   });
 
   export default styles; 

@@ -5,6 +5,7 @@ import { Avatar } from 'react-native-paper';
 import styles from './style';
 import { setSelectedConversationDetails } from '../../redux/chat/chatSlice';
 import { useDispatch } from 'react-redux';
+import socket from '../../sockets';
 
 const Users = ({ navigation }: { navigation: any }) => {
   const dispatch = useDispatch();
@@ -21,16 +22,16 @@ const Users = ({ navigation }: { navigation: any }) => {
     }
     fetchData();
   }, [])
-
   const onMessagePress = async (userId: string) => {
-    console.log("target user id :::: ", userId)
     try {
       const response = await api.fetchOrCreateConversation(userId)
       if (response?.data?.message === "Conversation created") {
         dispatch(setSelectedConversationDetails(response?.data?.data));
+        socket.emit('join', response?.data?.data?._id)
       }
       if(response?.data?.message === "Conversations fetched") {
         dispatch(setSelectedConversationDetails(response?.data?.data[0]));
+        socket.emit('join', response?.data?.data[0]?._id)
       }
       navigation.navigate('AppStack', {screen : 'Conversation'})
     }

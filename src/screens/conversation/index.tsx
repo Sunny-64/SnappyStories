@@ -8,7 +8,8 @@ import { Avatar, Divider } from 'react-native-paper';
 import { PURPLE_ACCENT } from '../../constants/colors';
 import { api } from './../../services';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectConversationMessages } from '../../redux/chat/chatSlice';
+import { appendMessageOnSelectedConversation, setSelectConversationMessages } from '../../redux/chat/chatSlice';
+import socket from '../../sockets';
 
 const Conversation = ({ navigation, route }: { navigation: any, route: any }) => {
 
@@ -32,11 +33,11 @@ const Conversation = ({ navigation, route }: { navigation: any, route: any }) =>
   // ]);
 
   const currentUserId = useSelector((state: any) => state?.user?.data?._id)
+  console.log(currentUserId)
   const selectedChat = useSelector((state: any) => state.chat?.selectedConversation?.conversationDetails);
 
   const otherUserDetails = selectedChat?.participants?.filter((item: any) => item?._id !== currentUserId);
   const messages = useSelector((state: any) => state?.chat?.selectedConversation?.messages);
-
   useEffect(() => {
     const fetchAndSetMessages = async () => {
       if (selectedChat) {
@@ -47,7 +48,14 @@ const Conversation = ({ navigation, route }: { navigation: any, route: any }) =>
     fetchAndSetMessages();
   }, [])
   const handleSend = async () => {
-    console.log("send")
+    try {
+      const response = await api.sendMessage(selectedChat?._id, message);
+      dispatch(appendMessageOnSelectedConversation(response?.data?.data));
+      setMessage('')
+    }
+    catch (err: any) {
+      console.log(err);
+    }
   };
 
   return (
@@ -79,9 +87,10 @@ const Conversation = ({ navigation, route }: { navigation: any, route: any }) =>
         {/* Body */}
         <ScrollView
           showsVerticalScrollIndicator={false}
+          style = {styles.messages}
         >
           <View style={styles.body}>
-            {messages?.map((msg: any) => (
+            {messages && messages?.map((msg: any) => (
               <View
                 key={msg?._id}
                 style={[

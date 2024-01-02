@@ -8,11 +8,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 import AuthStack from './stack/AuthStack';
 import DrawerNavigation from './drawer';
+import { initializeSocket } from '../sockets';
 
 const Stack = createStackNavigator();
 const RootNavigation = () => {
   const getIsLoggedIn = useSelector((state:any) => state.auth.isLoggedIn); 
-  
+  initializeSocket(); 
   return (
     <NavigationContainer>
         {/* <AppStack /> */}
