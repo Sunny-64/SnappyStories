@@ -11,10 +11,12 @@ import styles from './style';
 import { loginSchema } from '../../validations';
 import api from '../../services/api';
 import { setAuth } from '../../redux/auth/authSlice';
+import { fetchUserData, setUser } from '../../redux/user/userSlice';
+import { AppDispatch } from '../../redux/store';
 
 const Login = ({ navigation }: { navigation: any }) => {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const {
     control,
@@ -42,6 +44,7 @@ const Login = ({ navigation }: { navigation: any }) => {
         }); 
       }
       dispatch(setAuth({isLoggedIn : true}));
+      dispatch(fetchUserData())
     }
     catch (err) {
       console.log(err);

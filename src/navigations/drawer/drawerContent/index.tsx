@@ -28,9 +28,12 @@ export function DrawerContent(props:any) {
 
     const dispatch = useDispatch<AppDispatch>(); 
     const userData = useSelector((state:any) => state.user.data); 
+    // console.log(userData);
     useEffect(() => {
-        dispatch(fetchUserData()); 
-    }, [dispatch]); 
+        if(!userData){
+            dispatch(fetchUserData()); 
+        }
+    }, [dispatch, userData]); 
 
     return(
         <View style={{flex:1}}>

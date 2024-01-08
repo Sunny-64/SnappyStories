@@ -2,7 +2,7 @@ import axios from "axios";
 import { IAuth } from "../types";
 import { store } from "../redux/store";
 
-const BASE_URL = "http://192.168.27.96:3000"; 
+const BASE_URL = "http://192.168.1.25:3000"; 
 
 const authSelector:any = store.getState(); 
   
@@ -22,6 +22,7 @@ class ApiService {
         return axios.post(`${BASE_URL}/v1/auth/verify-email`, {otp}, {headers : authHeader}); 
     }
     fetchUserData(){
+        // console.log("auth Header in api.ts >>>>>>>>>  ", authHeader); 
         return axios.get(`${BASE_URL}/v1/users/currentUser`, {headers : authHeader}); 
     }
     fetchUsers(){

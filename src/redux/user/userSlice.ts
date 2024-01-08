@@ -6,12 +6,14 @@ import {api} from '../../services/'
 export const fetchUserData = createAsyncThunk("user/fetchUserData", async (_, thunkApi) => {
     try{
       const res = await api.fetchUserData(); 
-    return res.data.data; 
+      console.log("response fetchUserData : ", )
+      return res.data.data; 
     }
     catch(err:any){
-      console.log(err.response.data); 
+      console.log("Request Error", err); 
+      console.log("Response Error : ", err.response); 
     }
-})
+}); 
 
 const initialState = {
     data : {}, 

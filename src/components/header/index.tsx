@@ -42,32 +42,10 @@ const Header = ({ navigation, title }: { navigation: any, title: string }) => {
         navigation.goBack();
     };
 
-    const handleSearch = () => console.log("search")
-    const handleMore = () => console.log("More");
-
     return (
-        // <View>
-        //     <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
-        //         {showBackButton && (
-        //             <TouchableOpacity onPress={handleBackPress}>
-        //                 <FontAwesome5 name="arrow-left" size={24} color="black" />
-        //             </TouchableOpacity>
-        //         )}
-
-        //         {/* Your Logo */}
-        //         <Image
-        //             source={logo}
-        //             style={{ width: 50, height: 50 }}
-        //         />
-
-        //         {/* User Image */}
-        //         <Avatar.Image
-        //             source={{ uri: 'https://user-image-url.com/user.png' }}
-        //             size={40}
-        //         />
-        //     </View>
-        // </View>
-        <Appbar.Header elevated>
+        <Appbar.Header elevated
+           
+        >
             <Appbar.BackAction onPress={handleBackPress} />
             <Appbar.Content title={title} />
 
@@ -75,6 +53,8 @@ const Header = ({ navigation, title }: { navigation: any, title: string }) => {
                     source={{ uri: 'https://user-image-url.com/user.png' }}
                     size={40}
                     style={styles.avatar}
+                    onTouchStart={() => navigation.openDrawer()}
+                    // onPress={() => navigation.openDrawer()}
                 />
         </Appbar.Header>
     );
